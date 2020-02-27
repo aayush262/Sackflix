@@ -3,7 +3,7 @@ const config = require('./configs');
 const app = express();
 const ejs = require('ejs');
 const path = require('path');
-const authRoutes = require('./Routes/auth');
+const authRoutes = require('./routes/auth');
 const bodyParser = require('body-parser');
 
 require('./db');
