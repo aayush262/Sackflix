@@ -1,5 +1,18 @@
 const UserModel = require('../model/user');
 const passwordHash = require('password-hash');
+const jwt = require('jsonwebtoken');
+const config = require('../configs');
+
+function createToken(data){
+    var token = jwt.sign({
+        name: data.name,
+        _id: data._id,
+        email: data._email,
+        role: data.role
+    },config.secret);
+
+    return token;
+}
 
 function mapUserData(user,data){
     if(data.name)
@@ -65,7 +78,12 @@ module.exports = {
                 }
                 var isMatched = passwordHash.verify(req.body.password,user.password);
                 if(isMatched){
-                    res.json(user)
+                    const token = createToken(user);
+                    req.session.user = {
+                        user,
+                        token
+                    };
+                    res.redirect('/movies');
                 }else{
                     res.json({
                         msg: 'Invalid password'

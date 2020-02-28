@@ -5,6 +5,12 @@ const ejs = require('ejs');
 const path = require('path');
 const authRoutes = require('./routes/auth');
 const bodyParser = require('body-parser');
+const userRoutes = require('./routes/user');
+const session = require('express-session');
+const authenticate = require('./middlewares/authenticate');
+
+app.use(session({secret: config.secret, resave: false, saveUninitialized: false}));
+
 
 require('./db');
 
@@ -18,6 +24,8 @@ app.set('views',path.join(__dirname,'views'));
 app.use(express.static(path.join(__dirname,'public')));
 
 app.use('/',authRoutes);
+app.use('/movies',authenticate,userRoutes);
+
 app.use((error,req,res,next)=>{
     res.json({
         msg: error,

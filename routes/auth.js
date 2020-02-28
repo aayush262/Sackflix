@@ -1,6 +1,7 @@
 const Router = require('express').Router();
 const authController = require('../controllers/auth');
 
+
 Router.route('/')
     .get(authController.getIndexPage);
 

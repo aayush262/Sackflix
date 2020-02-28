@@ -7,7 +7,5 @@ mongoose.connect(`${dbconfig.conxnURL}/${dbconfig.dbName}`,{
 },function(err,done){
     if(err){
         console.log(err);
-    }else{
-        console.log('db connection success');
     }
 })
