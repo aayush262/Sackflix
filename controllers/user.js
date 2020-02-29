@@ -3,7 +3,7 @@ const UserModel = require('../model/user');
 
 module.exports= {
     getMoviePage: function(req,res,next){
-        const user = req.session.user.user;
+        const user = req.loggedInUser;
         res.render('user/movies.ejs',{
             pageTitle: 'Movies',
             description: 'Enjoy all exciting movies here',

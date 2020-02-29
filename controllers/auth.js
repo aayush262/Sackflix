@@ -78,11 +78,7 @@ module.exports = {
                 }
                 var isMatched = passwordHash.verify(req.body.password,user.password);
                 if(isMatched){
-                    const token = createToken(user);
-                    req.session.user = {
-                        user,
-                        token
-                    };
+                    createToken(user);
                     res.redirect('/movies');
                 }else{
                     res.json({
